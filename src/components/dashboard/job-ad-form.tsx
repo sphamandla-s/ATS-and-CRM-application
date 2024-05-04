@@ -24,6 +24,7 @@ import Tiptap from "../Tiptap"
 import { AlertDialog, AlertDialogTrigger } from "../ui/alert-dialog"
 import FromPreview from "./form-preview"
 import { useState } from "react"
+import { Dialog, DialogTrigger } from "../ui/dialog"
 
 const formSchema = z.object({
   post: z.string().min(2, {
@@ -39,6 +40,7 @@ const formSchema = z.object({
     message: "description must be at least 20 characters.",
   }),
   requirements: z.array(z.string()),
+  positions: z.string(),
   visibility: z
     .string({
       required_error: "Please select an Job visibility.",
@@ -65,6 +67,7 @@ export function JobAdForm() {
       description: "",
       posting: "",
       type: "",
+      positions: '',
       requirements: [],
       closing: new Date(),
 
@@ -183,24 +186,21 @@ export function JobAdForm() {
                           </FormItem>
                         )}
                       />
+
                       <FormField
                         control={form.control}
-                        name="type"
+                        name="positions"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>Job Type</FormLabel>
-                            <Select onValueChange={field.onChange} defaultValue={field.value}>
-                              <FormControl>
-                                <SelectTrigger id="status" aria-label="Select status">
-                                  <SelectValue placeholder="Select status" />
-                                </SelectTrigger>
-                              </FormControl>
-                              <SelectContent>
-                                <SelectItem value="full-time">Full Time</SelectItem>
-                                <SelectItem value="part-time">Part Time</SelectItem>
-                                <SelectItem value="contract">Contract</SelectItem>
-                              </SelectContent>
-                            </Select>
+                            <FormLabel>No. Of Positions</FormLabel>
+                            <FormControl>
+                              <Input
+                                id="positions"
+                                type="number"
+                                className="w-full"
+                                {...field}
+                              />
+                            </FormControl>
                             <FormMessage />
                           </FormItem>
                         )}
@@ -214,7 +214,7 @@ export function JobAdForm() {
                           <FormLabel>Requirements</FormLabel>
                           <div className="flex flex-wrap gap-1">
                             {requirements.map((requirement) => (
-                              <span id="badge-dismiss-green" className="inline-flex items-center px-2 py-1 me-2 text-sm font-medium text-green-800 bg-green-100 rounded dark:bg-green-900 dark:text-green-300">
+                              <span id="badge-dismiss-green" className="inline-flex white-space:wrap items-center px-2 py-1 me-2 text-sm font-medium text-green-800 bg-green-100 rounded dark:bg-green-900 dark:text-green-300">
                                 {requirement}
                                 <button onClick={() => handleRemoveRequirement(requirement)} type="button" className="inline-flex items-center p-1 ms-2 text-sm text-green-400 bg-transparent rounded-sm hover:bg-green-200 hover:text-green-900 dark:hover:bg-green-800 dark:hover:text-green-300" data-dismiss-target="#badge-dismiss-green" aria-label="Remove">
                                   <svg className="w-2 h-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
@@ -226,7 +226,7 @@ export function JobAdForm() {
                             ))}
                             <Input
                               type="text"
-                              className="w-full rounded-md border border-gray-300 px-3 py-2 focus:border-primary-500 focus:outline-none"
+                              className="w-full  rounded-md border border-gray-300 px-3 py-2 focus:border-primary-500 focus:outline-none"
                               placeholder="Add requirement"
                               onKeyDown={(e) => {
                                 if (e.key === "Enter") {
@@ -265,7 +265,7 @@ export function JobAdForm() {
           <div className="grid auto-rows-max items-start gap-4 lg:gap-8">
             <Card x-chunk="dashboard-07-chunk-3">
               <CardHeader>
-                <CardTitle>Post Type</CardTitle>
+                <CardTitle></CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="grid gap-6">
@@ -278,21 +278,42 @@ export function JobAdForm() {
                           <FormLabel>Post Availability</FormLabel>
                           <Select onValueChange={field.onChange} defaultValue={field.value}>
                             <FormControl>
-                              <SelectTrigger id="status" aria-label="Select status">
+                              <SelectTrigger id="status" aria-label="Select Availability">
                                 <SelectValue placeholder="Select status" />
                               </SelectTrigger>
                             </FormControl>
                             <SelectContent>
-                              <SelectItem value="external">External</SelectItem>
-                              <SelectItem value="internal">Internal</SelectItem>
-                              <SelectItem value="external/internal">External/Internal</SelectItem>
+                              <SelectItem value="External">External</SelectItem>
+                              <SelectItem value="Internal">Internal</SelectItem>
+                              <SelectItem value="External/Internal">External/Internal</SelectItem>
                             </SelectContent>
                           </Select>
                           <FormMessage />
                         </FormItem>
                       )}
                     />
-
+                    <FormField
+                      control={form.control}
+                      name="type"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Job Type</FormLabel>
+                          <Select onValueChange={field.onChange} defaultValue={field.value}>
+                            <FormControl>
+                              <SelectTrigger id="status" aria-label="Select status">
+                                <SelectValue placeholder="Select status" />
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                              <SelectItem value="Full Time">Full Time</SelectItem>
+                              <SelectItem value="Part Time">Part Time</SelectItem>
+                              <SelectItem value="Contract">Contract</SelectItem>
+                            </SelectContent>
+                          </Select>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
                   </div>
                 </div>
               </CardContent>
@@ -351,14 +372,14 @@ export function JobAdForm() {
           </div>
         </div>
         <div className="flex items-center justify-start gap-10 mt-5">
-          <AlertDialog>
-            <AlertDialogTrigger asChild>
+        <Dialog>
+        <DialogTrigger asChild>
               <Button variant="outline" size="sm" type="button" onClick={onPreview}>
                 Preview
               </Button>
-            </AlertDialogTrigger>
+              </DialogTrigger>
             <FromPreview values={previewValues!} />
-          </AlertDialog>
+            </Dialog>
           <Button type="submit" size="sm">Post Job</Button>
         </div>
       </form>

@@ -5,7 +5,6 @@ import { Editor } from "@tiptap/react";
 import {
   Bold,
   Italic,
-  Heading2,
   List,
   ListOrdered,
   Undo,
@@ -47,23 +46,14 @@ const Toolbar = ({ editor }: Props) => {
         <button
           onClick={(e) => {
             e.preventDefault();
-            editor.chain().focus().toggleHeading({ level: 2 }).run();
-          }}
-          className={editor.isActive("heading", { level: 2 }) ? "text-blue-600" : ""}
-          aria-label="Heading"
-        >
-          <Heading2 size={20} />
-        </button>
-        <button
-          onClick={(e) => {
-            e.preventDefault();
             editor.chain().focus().toggleBulletList().run()
-        }}
+          }}
           className={editor.isActive("bulletList") ? "text-blue-600" : ""}
           aria-label="Bullet List"
         >
           <List size={20} />
         </button>
+
         <button
           onClick={(e) => {
             e.preventDefault();
@@ -74,6 +64,7 @@ const Toolbar = ({ editor }: Props) => {
         >
           <ListOrdered size={20} />
         </button>
+        
       </div>
       <div className="flex gap-2">
         <button

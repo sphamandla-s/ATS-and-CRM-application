@@ -12,14 +12,14 @@ import { useTheme } from 'next-themes'
 import { usePathname } from 'next/navigation'
 
 function DashboardHeader() {
-const { theme, setTheme } = useTheme()
-const pathname = usePathname()
-console.log(pathname)
+    const { theme, setTheme } = useTheme()
+    const pathname = usePathname()
+    console.log(pathname)
 
 
     const toggleTheme = () => {
         setTheme(theme === 'light' ? 'dark' : 'light');
-      };
+    };
 
 
     return (
@@ -86,10 +86,31 @@ console.log(pathname)
             </Button>
 
 
-            <Button variant="outline" size="icon" className="ml-auto h-8 w-8">
-                <Bell className="h-4 w-4" />
-                <span className="sr-only">Toggle notifications</span>
-            </Button>
+
+            <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                    <Button variant="outline" size="icon" className="relative ml-auto h-8 w-8">
+                        <Bell className="h-4 w-4" />
+
+                        <span className="flex absolute top-0 end-0 -mt-2 -me-2">
+                            <span className="animate-ping absolute inline-flex size-full rounded-full bg-red-400 opacity-75"></span>
+                            <span className="relative inline-flex text-xs bg-red-500 text-white rounded-full py-0.5 px-1.5">
+                                10
+                            </span>
+                        </span>
+                    </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                    <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem>Settings</DropdownMenuItem>
+                    <DropdownMenuItem>Support</DropdownMenuItem>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem>Logout</DropdownMenuItem>
+                </DropdownMenuContent>
+            </DropdownMenu>
+
+
             <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                     <Button variant="secondary" size="icon" className="rounded-full">
