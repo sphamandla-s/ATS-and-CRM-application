@@ -25,6 +25,7 @@ import { AlertDialog, AlertDialogTrigger } from "../ui/alert-dialog"
 import FromPreview from "./form-preview"
 import { useState } from "react"
 import { Dialog, DialogTrigger } from "../ui/dialog"
+import { createJobPost } from "@/lib/actions/post.action"
 
 const formSchema = z.object({
   post: z.string().min(2, {
@@ -75,10 +76,18 @@ export function JobAdForm() {
   })
 
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values)
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    try {
+      const newJobPost = await createJobPost({ ...values })
+
+      if (newJobPost) {
+        form.reset();
+        // router.push(`/stokvels/${newStokvel._id}`)
+      }
+
+    } catch (error) {
+      console.log(error)
+    }
   }
 
 
@@ -213,8 +222,8 @@ export function JobAdForm() {
                         <FormItem>
                           <FormLabel>Requirements</FormLabel>
                           <div className="flex flex-wrap gap-1">
-                            {requirements.map((requirement) => (
-                              <span id="badge-dismiss-green" className="inline-flex white-space:wrap items-center px-2 py-1 me-2 text-sm font-medium text-green-800 bg-green-100 rounded dark:bg-green-900 dark:text-green-300">
+                            {requirements.map((requirement, index) => (
+                              <span key={index} id="badge-dismiss-green" className="inline-flex white-space:wrap items-center px-2 py-1 me-2 text-sm font-medium text-green-800 bg-green-100 rounded dark:bg-green-900 dark:text-green-300">
                                 {requirement}
                                 <button onClick={() => handleRemoveRequirement(requirement)} type="button" className="inline-flex items-center p-1 ms-2 text-sm text-green-400 bg-transparent rounded-sm hover:bg-green-200 hover:text-green-900 dark:hover:bg-green-800 dark:hover:text-green-300" data-dismiss-target="#badge-dismiss-green" aria-label="Remove">
                                   <svg className="w-2 h-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
@@ -372,14 +381,14 @@ export function JobAdForm() {
           </div>
         </div>
         <div className="flex items-center justify-start gap-10 mt-5">
-        <Dialog>
-        <DialogTrigger asChild>
+          <Dialog>
+            <DialogTrigger asChild>
               <Button variant="outline" size="sm" type="button" onClick={onPreview}>
                 Preview
               </Button>
-              </DialogTrigger>
+            </DialogTrigger>
             <FromPreview values={previewValues!} />
-            </Dialog>
+          </Dialog>
           <Button type="submit" size="sm">Post Job</Button>
         </div>
       </form>
