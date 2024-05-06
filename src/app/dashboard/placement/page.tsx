@@ -1,9 +1,8 @@
 import React from 'react'
-import PostJob from '../test'
 
 function Placement() {
   return (
-    <PostJob />
+    <div>Placements</div>
   )
 }
 

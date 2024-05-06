@@ -1,229 +1,630 @@
-/* eslint-disable @next/next/no-img-element */
-"use client"
+import Image from "next/image"
+import Link from "next/link"
+import {
+  File,
+  Home,
+  LineChart,
+  ListFilter,
+  MoreHorizontal,
+  Package,
+  Package2,
+  PanelLeft,
+  PlusCircle,
+  Search,
+  Settings,
+  ShoppingCart,
+  Users2,
+} from "lucide-react"
 
-import { useRef, useState } from "react";
-import Link from "next/link";
-import { ChevronLeft, Tag, TimerReset } from "lucide-react";
+import { Badge } from "@/components/ui/badge"
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb"
+import { Button } from "@/components/ui/button"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
+import {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import { Input } from "@/components/ui/input"
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table"
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@/components/ui/tabs"
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
 
-const PostJob = () => {
-  const logoInput = useRef(null);
-  const bannerInput = useRef(null);
-  const [logo, setLogo] = useState("");
-  const [banner, setBanner] = useState("");
-
-  const [tag, setTag] = useState("react");
-  const [tags, setTags] = useState([
-    { id: 18179290, tag: "html" },
-    { id: 18938347, tag: "css" },
-    { id: 43617839, tag: "javascript" },
-    { id: 32523642, tag: "react" },
-    { id: 13532646, tag: "firebase" },
-    { id: 36323526, tag: "graphql" },
-  ]);
-
-//   const handleSubmit = (e) => {
-//     e.preventDefault();
-//     if (tag) {
-//       setTags([...tags, { id: new Date().getTime().toString(), tag }]);
-//     }
-//     setTag("");
-//   };
-
-//   const removeTag = (id) => {
-//     setTags(tags.filter((tag) => tag.id !== id));
-//   };
-
+export function Dashboard() {
   return (
-    <>
-      <div className="rounded max-w-3xl w-full mx-auto">
-        {/*---------------------------------------- Back to home button------------------------------------- */}
-        <button className="btn bg-slate-200 hover:bg-slate-300 dark:bg-dark-card dark:hover:bg-hover-color">
-          <Link href="/" className="flex-align-center gap-2">
-           
-              <ChevronLeft />
-              <span>back</span>
-           
-          </Link>
-        </button>
-
-        {/* <div className="relative mt-5">
-          <input
-            type="file"
-            hidden
-            ref={logoInput}
-            onChange={(e) => setLogo(e.target.files[0])}
-          />
-          <img
-            src={`${
-              banner ? URL.createObjectURL(banner) : "/images/placeholder.png"
-            }`}
-            alt=""
-            className="h-[200px] sm:cursor-pointer object-cover w-full rounded-tl-xl rounded-tr-xl"
-            onClick={() => bannerInput.current.click()}
-          />
-          <input
-            type="file"
-            hidden
-            ref={bannerInput}
-            onChange={(e) => setBanner(e.target.files[0])}
-          />
-          <div
-            className="sm:cursor-pointer"
-            onClick={() => logoInput.current.click()}
+    <div className="flex min-h-screen w-full flex-col bg-muted/40">
+      <aside className="fixed inset-y-0 left-0 z-10 hidden w-14 flex-col border-r bg-background sm:flex">
+        <nav className="flex flex-col items-center gap-4 px-2 sm:py-5">
+          <Link
+            href="#"
+            className="group flex h-9 w-9 shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-lg font-semibold text-primary-foreground md:h-8 md:w-8 md:text-base"
           >
-            {logo ? (
-              <img
-                src={URL.createObjectURL(logo)}
-                alt=""
-                className="w-16 left-10 -bottom-8 absolute rounded-lg"
-              />
-            ) : (
-              <div className="w-20 h-16 rounded-lg grid place-items-center left-10 -bottom-8 absolute border-2 border-dotted border-slate-400 dark:border-hover-color">
-                <FaCamera className="text-3xl opacity-60 dark:text-slate-500" />
-                <span className="opacity-50">Logo</span>
-              </div>
-            )}
-          </div>
-        </div> */}
-        <h1 className="text-2xl font-bold mt-10">Fill the form</h1>
-        {/*---------------------------------------- Form------------------------------------- */}
-
-        <div className="flex-align-center flex-col sm:flex-row gap-4 mt-8">
-          <div className="form-input w-full sm:flex-1 relative">
-            <input
-              type="text"
-              name="name"
-              className="input"
-              value="FrontEnd Engineer"
-              onChange={() => {}}
-              required
-            />
-            <label htmlFor="name">Job Title</label>
-          </div>
-          <div className="form-input w-full sm:flex-1 relative">
-            <input
-              type="text"
-              name="name"
-              className="input"
-              value="Whatsapp Inc."
-              onChange={() => {}}
-              required
-            />
-            <label htmlFor="name">Company name</label>
-          </div>
-        </div>
-        <div className="mt-5">
-          <form>
-            <div className="form-input w-full sm:flex-1 relative">
-              <span className="absolute top-2 left-2">
-                <Tag className="opacity-50" />
-              </span>
-              <input
-                type="text"
-                className="input !pl-8"
-                value={tag}
-                onChange={(e) => setTag(e.target.value)}
-              />
-              <label htmlFor="name">Add skills</label>
-            </div>
-
-            <div className="flex-align-center gap-2 flex-wrap">
-              {tags?.map(({ id, tag }) => (
-                <div
-                  className="flex-center-between gap-2 px-1 py-[1px] bg-slate-200 dark:bg-hover-color"
-                  key={id}
+            <Package2 className="h-4 w-4 transition-all group-hover:scale-110" />
+            <span className="sr-only">Acme Inc</span>
+          </Link>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Link
+                href="#"
+                className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
+              >
+                <Home className="h-5 w-5" />
+                <span className="sr-only">Dashboard</span>
+              </Link>
+            </TooltipTrigger>
+            <TooltipContent side="right">Dashboard</TooltipContent>
+          </Tooltip>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Link
+                href="#"
+                className="flex h-9 w-9 items-center justify-center rounded-lg bg-accent text-accent-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
+              >
+                <ShoppingCart className="h-5 w-5" />
+                <span className="sr-only">Orders</span>
+              </Link>
+            </TooltipTrigger>
+            <TooltipContent side="right">Orders</TooltipContent>
+          </Tooltip>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Link
+                href="#"
+                className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
+              >
+                <Package className="h-5 w-5" />
+                <span className="sr-only">Products</span>
+              </Link>
+            </TooltipTrigger>
+            <TooltipContent side="right">Products</TooltipContent>
+          </Tooltip>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Link
+                href="#"
+                className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
+              >
+                <Users2 className="h-5 w-5" />
+                <span className="sr-only">Customers</span>
+              </Link>
+            </TooltipTrigger>
+            <TooltipContent side="right">Customers</TooltipContent>
+          </Tooltip>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Link
+                href="#"
+                className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
+              >
+                <LineChart className="h-5 w-5" />
+                <span className="sr-only">Analytics</span>
+              </Link>
+            </TooltipTrigger>
+            <TooltipContent side="right">Analytics</TooltipContent>
+          </Tooltip>
+        </nav>
+        <nav className="mt-auto flex flex-col items-center gap-4 px-2 sm:py-5">
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Link
+                href="#"
+                className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
+              >
+                <Settings className="h-5 w-5" />
+                <span className="sr-only">Settings</span>
+              </Link>
+            </TooltipTrigger>
+            <TooltipContent side="right">Settings</TooltipContent>
+          </Tooltip>
+        </nav>
+      </aside>
+      <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14">
+        <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
+          <Sheet>
+            <SheetTrigger asChild>
+              <Button size="icon" variant="outline" className="sm:hidden">
+                <PanelLeft className="h-5 w-5" />
+                <span className="sr-only">Toggle Menu</span>
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="left" className="sm:max-w-xs">
+              <nav className="grid gap-6 text-lg font-medium">
+                <Link
+                  href="#"
+                  className="group flex h-10 w-10 shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-lg font-semibold text-primary-foreground md:text-base"
                 >
-                  <span className="text-sm capitalize">{tag}</span>
-                  <div
-                    className="sm:cursor-pointer"
-                    
-                  >
-                    <TimerReset className="text-sm" />
-                  </div>
-                </div>
-              ))}
-            </div>
-          </form>
-        </div>
-        <div className="flex-align-center flex-col sm:flex-row gap-4 mt-8">
-          <div className="flex-align-center gap-3 w-full sm:w-fit">
-            <div className="form-input flex-1 relative">
-              <select className="input" required>
-                <option value="uganda">USD</option>
-                <option value="uganda">UGX</option>
-                <option value="uganda">KSH</option>
-                <option value="uganda">Naira</option>
-              </select>
-              <label htmlFor="email">Currency</label>
-            </div>
-            <div className="form-input flex-2 relative">
-              <input
-                type="number"
-                name="name"
-                className="input"
-                value="1092"
-                onChange={() => {}}
-                required
-              />
-              <label htmlFor="name">Salary</label>
-            </div>
-          </div>
-          <div className="form-input w-full sm:flex-1 relative">
-            <input
-              type="text"
-              name="name"
-              className="input"
-              value="Whatsapp Inc."
-              onChange={() => {}}
-              required
+                  <Package2 className="h-5 w-5 transition-all group-hover:scale-110" />
+                  <span className="sr-only">Acme Inc</span>
+                </Link>
+                <Link
+                  href="#"
+                  className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
+                >
+                  <Home className="h-5 w-5" />
+                  Dashboard
+                </Link>
+                <Link
+                  href="#"
+                  className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
+                >
+                  <ShoppingCart className="h-5 w-5" />
+                  Orders
+                </Link>
+                <Link
+                  href="#"
+                  className="flex items-center gap-4 px-2.5 text-foreground"
+                >
+                  <Package className="h-5 w-5" />
+                  Products
+                </Link>
+                <Link
+                  href="#"
+                  className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
+                >
+                  <Users2 className="h-5 w-5" />
+                  Customers
+                </Link>
+                <Link
+                  href="#"
+                  className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
+                >
+                  <LineChart className="h-5 w-5" />
+                  Settings
+                </Link>
+              </nav>
+            </SheetContent>
+          </Sheet>
+          <Breadcrumb className="hidden md:flex">
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbLink asChild>
+                  <Link href="#">Dashboard</Link>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbLink asChild>
+                  <Link href="#">Products</Link>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbPage>All Products</BreadcrumbPage>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
+          <div className="relative ml-auto flex-1 md:grow-0">
+            <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+            <Input
+              type="search"
+              placeholder="Search..."
+              className="w-full rounded-lg bg-background pl-8 md:w-[200px] lg:w-[336px]"
             />
-            <label htmlFor="name">Company name</label>
           </div>
-        </div>
-        <div className="flex-align-center flex-col sm:flex-row gap-4 mt-5">
-          <div className="form-input w-full sm:flex-1 relative">
-            <input type="text" name="address" className="input" required />
-            <label htmlFor="address">Address</label>
-          </div>
-
-          <div className="form-input w-full sm:flex-1 relative">
-            <input type="text" name="phone" className="input" required />
-            <label htmlFor="phone">Phone 1</label>
-          </div>
-
-          <div className="form-input w-full sm:flex-1 relative">
-            <input type="text" name="phone" className="input" required />
-            <label htmlFor="phone">Phone 2</label>
-          </div>
-        </div>
-        <div className="form-input w-full sm:flex-1 relative mt-5">
-          <input
-            type="text"
-            name="email"
-            className="input"
-            value="whatsapp@inc.com"
-            onChange={() => {}}
-            required
-          />
-          <label htmlFor="email">Email Address</label>
-        </div>
-        <div className="form-input w-full sm:flex-1 relative mt-5">
-          <textarea
-            name="name"
-            className="input !h-28 pt-2"
-            required
-          ></textarea>
-          <label htmlFor="name">Job Description</label>
-        </div>
-        <div className="input-check">
-          <input type="checkbox" name="" id="terms" />
-          <label htmlFor="terms">I agree to the terms & conditions</label>
-        </div>
-        <button className="btn btn-primary w-full mt-4">post job</button>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button
+                variant="outline"
+                size="icon"
+                className="overflow-hidden rounded-full"
+              >
+                <Image
+                  src="/placeholder-user.jpg"
+                  width={36}
+                  height={36}
+                  alt="Avatar"
+                  className="overflow-hidden rounded-full"
+                />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuLabel>My Account</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem>Settings</DropdownMenuItem>
+              <DropdownMenuItem>Support</DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem>Logout</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </header>
+        <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
+          <Tabs defaultValue="all">
+            <div className="flex items-center">
+              <TabsList>
+                <TabsTrigger value="all">All</TabsTrigger>
+                <TabsTrigger value="active">Active</TabsTrigger>
+                <TabsTrigger value="draft">Draft</TabsTrigger>
+                <TabsTrigger value="archived" className="hidden sm:flex">
+                  Archived
+                </TabsTrigger>
+              </TabsList>
+              <div className="ml-auto flex items-center gap-2">
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="outline" size="sm" className="h-8 gap-1">
+                      <ListFilter className="h-3.5 w-3.5" />
+                      <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
+                        Filter
+                      </span>
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end">
+                    <DropdownMenuLabel>Filter by</DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuCheckboxItem checked>
+                      Active
+                    </DropdownMenuCheckboxItem>
+                    <DropdownMenuCheckboxItem>Draft</DropdownMenuCheckboxItem>
+                    <DropdownMenuCheckboxItem>
+                      Archived
+                    </DropdownMenuCheckboxItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+                <Button size="sm" variant="outline" className="h-8 gap-1">
+                  <File className="h-3.5 w-3.5" />
+                  <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
+                    Export
+                  </span>
+                </Button>
+                <Button size="sm" className="h-8 gap-1">
+                  <PlusCircle className="h-3.5 w-3.5" />
+                  <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
+                    Add Product
+                  </span>
+                </Button>
+              </div>
+            </div>
+            <TabsContent value="all">
+              <Card x-chunk="dashboard-06-chunk-0">
+                <CardHeader>
+                  <CardTitle>Products</CardTitle>
+                  <CardDescription>
+                    Manage your products and view their sales performance.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead className="hidden w-[100px] sm:table-cell">
+                          <span className="sr-only">Image</span>
+                        </TableHead>
+                        <TableHead>Name</TableHead>
+                        <TableHead>Status</TableHead>
+                        <TableHead className="hidden md:table-cell">
+                          Price
+                        </TableHead>
+                        <TableHead className="hidden md:table-cell">
+                          Total Sales
+                        </TableHead>
+                        <TableHead className="hidden md:table-cell">
+                          Created at
+                        </TableHead>
+                        <TableHead>
+                          <span className="sr-only">Actions</span>
+                        </TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      <TableRow>
+                        <TableCell className="hidden sm:table-cell">
+                          <Image
+                            alt="Product image"
+                            className="aspect-square rounded-md object-cover"
+                            height="64"
+                            src="/placeholder.svg"
+                            width="64"
+                          />
+                        </TableCell>
+                        <TableCell className="font-medium">
+                          Laser Lemonade Machine
+                        </TableCell>
+                        <TableCell>
+                          <Badge variant="outline">Draft</Badge>
+                        </TableCell>
+                        <TableCell className="hidden md:table-cell">
+                          $499.99
+                        </TableCell>
+                        <TableCell className="hidden md:table-cell">
+                          25
+                        </TableCell>
+                        <TableCell className="hidden md:table-cell">
+                          2023-07-12 10:42 AM
+                        </TableCell>
+                        <TableCell>
+                          <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                              <Button
+                                aria-haspopup="true"
+                                size="icon"
+                                variant="ghost"
+                              >
+                                <MoreHorizontal className="h-4 w-4" />
+                                <span className="sr-only">Toggle menu</span>
+                              </Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent align="end">
+                              <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                              <DropdownMenuItem>Edit</DropdownMenuItem>
+                              <DropdownMenuItem>Delete</DropdownMenuItem>
+                            </DropdownMenuContent>
+                          </DropdownMenu>
+                        </TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell className="hidden sm:table-cell">
+                          <Image
+                            alt="Product image"
+                            className="aspect-square rounded-md object-cover"
+                            height="64"
+                            src="/placeholder.svg"
+                            width="64"
+                          />
+                        </TableCell>
+                        <TableCell className="font-medium">
+                          Hypernova Headphones
+                        </TableCell>
+                        <TableCell>
+                          <Badge variant="outline">Active</Badge>
+                        </TableCell>
+                        <TableCell className="hidden md:table-cell">
+                          $129.99
+                        </TableCell>
+                        <TableCell className="hidden md:table-cell">
+                          100
+                        </TableCell>
+                        <TableCell className="hidden md:table-cell">
+                          2023-10-18 03:21 PM
+                        </TableCell>
+                        <TableCell>
+                          <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                              <Button
+                                aria-haspopup="true"
+                                size="icon"
+                                variant="ghost"
+                              >
+                                <MoreHorizontal className="h-4 w-4" />
+                                <span className="sr-only">Toggle menu</span>
+                              </Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent align="end">
+                              <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                              <DropdownMenuItem>Edit</DropdownMenuItem>
+                              <DropdownMenuItem>Delete</DropdownMenuItem>
+                            </DropdownMenuContent>
+                          </DropdownMenu>
+                        </TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell className="hidden sm:table-cell">
+                          <Image
+                            alt="Product image"
+                            className="aspect-square rounded-md object-cover"
+                            height="64"
+                            src="/placeholder.svg"
+                            width="64"
+                          />
+                        </TableCell>
+                        <TableCell className="font-medium">
+                          AeroGlow Desk Lamp
+                        </TableCell>
+                        <TableCell>
+                          <Badge variant="outline">Active</Badge>
+                        </TableCell>
+                        <TableCell className="hidden md:table-cell">
+                          $39.99
+                        </TableCell>
+                        <TableCell className="hidden md:table-cell">
+                          50
+                        </TableCell>
+                        <TableCell className="hidden md:table-cell">
+                          2023-11-29 08:15 AM
+                        </TableCell>
+                        <TableCell>
+                          <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                              <Button
+                                aria-haspopup="true"
+                                size="icon"
+                                variant="ghost"
+                              >
+                                <MoreHorizontal className="h-4 w-4" />
+                                <span className="sr-only">Toggle menu</span>
+                              </Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent align="end">
+                              <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                              <DropdownMenuItem>Edit</DropdownMenuItem>
+                              <DropdownMenuItem>Delete</DropdownMenuItem>
+                            </DropdownMenuContent>
+                          </DropdownMenu>
+                        </TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell className="hidden sm:table-cell">
+                          <Image
+                            alt="Product image"
+                            className="aspect-square rounded-md object-cover"
+                            height="64"
+                            src="/placeholder.svg"
+                            width="64"
+                          />
+                        </TableCell>
+                        <TableCell className="font-medium">
+                          TechTonic Energy Drink
+                        </TableCell>
+                        <TableCell>
+                          <Badge variant="secondary">Draft</Badge>
+                        </TableCell>
+                        <TableCell className="hidden md:table-cell">
+                          $2.99
+                        </TableCell>
+                        <TableCell className="hidden md:table-cell">
+                          0
+                        </TableCell>
+                        <TableCell className="hidden md:table-cell">
+                          2023-12-25 11:59 PM
+                        </TableCell>
+                        <TableCell>
+                          <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                              <Button
+                                aria-haspopup="true"
+                                size="icon"
+                                variant="ghost"
+                              >
+                                <MoreHorizontal className="h-4 w-4" />
+                                <span className="sr-only">Toggle menu</span>
+                              </Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent align="end">
+                              <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                              <DropdownMenuItem>Edit</DropdownMenuItem>
+                              <DropdownMenuItem>Delete</DropdownMenuItem>
+                            </DropdownMenuContent>
+                          </DropdownMenu>
+                        </TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell className="hidden sm:table-cell">
+                          <Image
+                            alt="Product image"
+                            className="aspect-square rounded-md object-cover"
+                            height="64"
+                            src="/placeholder.svg"
+                            width="64"
+                          />
+                        </TableCell>
+                        <TableCell className="font-medium">
+                          Gamer Gear Pro Controller
+                        </TableCell>
+                        <TableCell>
+                          <Badge variant="outline">Active</Badge>
+                        </TableCell>
+                        <TableCell className="hidden md:table-cell">
+                          $59.99
+                        </TableCell>
+                        <TableCell className="hidden md:table-cell">
+                          75
+                        </TableCell>
+                        <TableCell className="hidden md:table-cell">
+                          2024-01-01 12:00 AM
+                        </TableCell>
+                        <TableCell>
+                          <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                              <Button
+                                aria-haspopup="true"
+                                size="icon"
+                                variant="ghost"
+                              >
+                                <MoreHorizontal className="h-4 w-4" />
+                                <span className="sr-only">Toggle menu</span>
+                              </Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent align="end">
+                              <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                              <DropdownMenuItem>Edit</DropdownMenuItem>
+                              <DropdownMenuItem>Delete</DropdownMenuItem>
+                            </DropdownMenuContent>
+                          </DropdownMenu>
+                        </TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell className="hidden sm:table-cell">
+                          <Image
+                            alt="Product image"
+                            className="aspect-square rounded-md object-cover"
+                            height="64"
+                            src="/placeholder.svg"
+                            width="64"
+                          />
+                        </TableCell>
+                        <TableCell className="font-medium">
+                          Luminous VR Headset
+                        </TableCell>
+                        <TableCell>
+                          <Badge variant="outline">Active</Badge>
+                        </TableCell>
+                        <TableCell className="hidden md:table-cell">
+                          $199.99
+                        </TableCell>
+                        <TableCell className="hidden md:table-cell">
+                          30
+                        </TableCell>
+                        <TableCell className="hidden md:table-cell">
+                          2024-02-14 02:14 PM
+                        </TableCell>
+                        <TableCell>
+                          <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                              <Button
+                                aria-haspopup="true"
+                                size="icon"
+                                variant="ghost"
+                              >
+                                <MoreHorizontal className="h-4 w-4" />
+                                <span className="sr-only">Toggle menu</span>
+                              </Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent align="end">
+                              <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                              <DropdownMenuItem>Edit</DropdownMenuItem>
+                              <DropdownMenuItem>Delete</DropdownMenuItem>
+                            </DropdownMenuContent>
+                          </DropdownMenu>
+                        </TableCell>
+                      </TableRow>
+                    </TableBody>
+                  </Table>
+                </CardContent>
+                <CardFooter>
+                  <div className="text-xs text-muted-foreground">
+                    Showing <strong>1-10</strong> of <strong>32</strong>{" "}
+                    products
+                  </div>
+                </CardFooter>
+              </Card>
+            </TabsContent>
+          </Tabs>
+        </main>
       </div>
-    </>
-  );
-};
-
-export default PostJob;
-//
+    </div>
+  )
+}

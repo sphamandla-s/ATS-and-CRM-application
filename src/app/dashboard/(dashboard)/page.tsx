@@ -1,8 +1,12 @@
+import BarGraph from '@/components/charts/barGraph'
+import LineGraph from '@/components/charts/lineGraph'
+import { InterviewsTable } from '@/components/dashboard/interviews'
 import { Button } from '@/components/ui/button'
 import { Calendar } from '@/components/ui/calendar'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { Progress } from '@/components/ui/progress'
 import { Activity, BookUser, BriefcaseBusiness, HardHat, Loader, MessageCircleQuestion, Users } from 'lucide-react'
+import Link from 'next/link'
 import React from 'react'
 
 function overview() {
@@ -20,7 +24,7 @@ function overview() {
             </CardDescription>
           </CardHeader>
           <CardFooter>
-            <Button>Create New A Job Post</Button>
+            <Button asChild><Link href="/dashboard/jobs-ads">Create New A Job Post</Link></Button>
           </CardFooter>
         </Card>
         <Card x-chunk="dashboard-01-chunk-0">
@@ -47,7 +51,7 @@ function overview() {
           <CardContent>
             <div className="text-2xl font-bold">2350</div>
             <p className="text-xs text-muted-foreground">
-            <span className=' text-green-500'>+180.1%  from last month</span>
+              <span className=' text-green-500'>+180.1%  from last month</span>
             </p>
           </CardContent>
         </Card>
@@ -59,7 +63,7 @@ function overview() {
           <CardContent>
             <div className="text-2xl font-bold">234</div>
             <p className="text-xs text-muted-foreground">
-            <span className=' text-red-500'>-19% from last month </span>
+              <span className=' text-red-500'>-19% from last month </span>
             </p>
           </CardContent>
         </Card>
@@ -100,6 +104,20 @@ function overview() {
           </CardContent>
         </Card>
       </div>
+      <Card>
+        <CardHeader>
+          <CardTitle>Overview Listing Performance</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className='grid gap-4 md:grid-cols-2'>
+            <LineGraph />
+            <BarGraph />
+          </div>
+        </CardContent>
+      </Card>
+
+      <InterviewsTable />
+
     </main>
   )
 }
